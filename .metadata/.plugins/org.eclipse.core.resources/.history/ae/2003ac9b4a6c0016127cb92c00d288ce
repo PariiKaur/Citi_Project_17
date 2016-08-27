@@ -1,0 +1,11 @@
+package electronic.bondtrader.ejb;
+
+import java.util.List;
+
+import javax.ejb.Local;
+
+@Local
+public interface BondTraderBeanLocal {
+	
+	public List<Bond> getAllBonds();
+}

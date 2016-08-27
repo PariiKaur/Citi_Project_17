@@ -1,0 +1,11 @@
+package electronic.bondtrader.ejb;
+
+import java.util.List;
+
+import javax.ejb.Remote;
+
+@Remote
+public interface BondTraderBeanRemote {
+	
+	public List<Bond> getAllBonds();
+}
