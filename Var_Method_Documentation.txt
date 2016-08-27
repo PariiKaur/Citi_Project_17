@@ -1,0 +1,26 @@
+
+List of instance variables and methods of class :
+
+ElectronicBondTraderJPA :
+	
+	* Bond.java : 
+
+
+
+
+
+
+
+
+
+
+
+ElectronicBondTraderEJB : 
+
+	*BondTraderBean.java : (Session Bean [EJB 3.x])
+
+
+	getAllBonds()
+	getBondsByType()
+	buyBond()
+	getBond()
