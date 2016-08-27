@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="ElectronicBondTrader">
+        <wb-resource deploy-path="/" source-path="/EarContent" tag="defaultRootSource"/>
+        <dependent-module archiveName="ElectronicBondTraderEJB.jar" deploy-path="/" handle="module:/resource/ElectronicBondTraderEJB/ElectronicBondTraderEJB">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ElectronicBondTraderEJBClient.jar" deploy-path="/" handle="module:/resource/ElectronicBondTraderEJBClient/ElectronicBondTraderEJBClient">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ElectronicBondTraderJPA.jar" deploy-path="/lib" handle="module:/resource/ElectronicBondTraderJPA/ElectronicBondTraderJPA">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ElectronicBondTraderWeb.war" deploy-path="/" handle="module:/resource/ElectronicBondTraderWeb/ElectronicBondTraderWeb">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+    </wb-module>
+</project-modules>
