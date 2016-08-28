@@ -5,6 +5,7 @@
         
         <jta-data-source>java:jboss/datasources/mydatabaseDS</jta-data-source>
         <class>electronic.bondtrader.jpa.Bond</class>
+        <class>electronic.bondtrader.jpa.Trade</class>
     </persistence-unit>
 
 </persistence>
