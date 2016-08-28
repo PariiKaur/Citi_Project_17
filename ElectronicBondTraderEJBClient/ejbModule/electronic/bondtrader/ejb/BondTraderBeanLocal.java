@@ -10,6 +10,4 @@ import electronic.bondtrader.jpa.Bond;
 public interface BondTraderBeanLocal {
 	
 	public List<Bond> getAllBonds();
-	public List<Bond> getBondsByType(String typeName);
-	public List<Bond> getBondsByRating (String rating);
 }
