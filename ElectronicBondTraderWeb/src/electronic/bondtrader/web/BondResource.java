@@ -9,11 +9,14 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DefaultValue;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Response;
 
 import electronic.bondtrader.ejb.BondTraderBeanLocal;
 import electronic.bondtrader.jpa.Bond;
@@ -35,6 +38,22 @@ public class BondResource {
 			e.printStackTrace();
 		}
 	}
+	@POST
+	@Path("/post_test")
+	@Consumes("application/x-www-form-urlencoded")
+	public Response post(@FormParam("name") String name, @FormParam("contact") String n) {
+		String  updated ="";
+		try {
+			System.out.println("Created successfully");
+			System.out.println(n + " " + name);
+			Integer received_contact = Integer.parseInt(n);
+			System.out.println(received_contact+1);
+		}
+		catch(Exception e) {
+			System.out.println("API error...");
+		}
+		return Response.status(200).entity(updated).build();
+	}	
 	@GET
 	@Produces ("application/json")
 	public List<Bond> getAllBonds(){
@@ -77,6 +96,9 @@ public class BondResource {
 		List<Bond> bondsByCriteria = bean.getBondsByCriteria(rating, typeName);
 		return bondsByCriteria;
 		
+	
+	}
+		
 	}
 	
-}
+
