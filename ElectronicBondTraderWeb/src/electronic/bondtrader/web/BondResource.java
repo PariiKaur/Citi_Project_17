@@ -50,14 +50,14 @@ public class BondResource {
 			//return null; //bean.getProductsByName(filter);
 	}
 	
-	@POST
-	@Path("/post_test")
-	@Consumes("application/x-www-form-urlencoded")
-	public Response post(@FormParam("name") String name) {
-	    // Store the message
-		String updated = "Success!";
-		return Response.status(200).entity(updated).build();
-	}
+//	@POST
+//	@Path("/post_test")
+//	@Consumes("application/x-www-form-urlencoded")
+//	public Response post(@FormParam("name") String name) {
+//	    // Store the message
+//		String updated = "Success!";
+//		return Response.status(200).entity(updated).build();
+//	}
 	
 	@POST
 	@Path("/post_test")
@@ -83,23 +83,23 @@ public class BondResource {
 		return Response.status(200).entity(updated).build();
 	}
 	
-	@POST
-	@Path("/post_test")
-	@Consumes("application/x-www-form-urlencoded")
-	public Response AddResource(InputStream incomingData) {
-		StringBuilder resourceBuilder = new StringBuilder();
-		try {
-			BufferedReader in = new BufferedReader(new InputStreamReader(incomingData));
-			String line = null;
-			while ((line = in.readLine()) != null) {
-				resourceBuilder.append(line);
-			}
-		} catch (Exception e) {
-			System.out.println("Error Parsing: - ");
-		}
-		System.out.println("Data Received: " + resourceBuilder.toString());
- 
-		// return HTTP response 200 in case of success
-		return Response.status(200).entity(resourceBuilder.toString()).build();
-	}
+//	@POST
+//	@Path("/post_test")
+//	@Consumes("application/x-www-form-urlencoded")
+//	public Response AddResource(InputStream incomingData) {
+//		StringBuilder resourceBuilder = new StringBuilder();
+//		try {
+//			BufferedReader in = new BufferedReader(new InputStreamReader(incomingData));
+//			String line = null;
+//			while ((line = in.readLine()) != null) {
+//				resourceBuilder.append(line);
+//			}
+//		} catch (Exception e) {
+//			System.out.println("Error Parsing: - ");
+//		}
+//		System.out.println("Data Received: " + resourceBuilder.toString());
+// 
+//		// return HTTP response 200 in case of success
+//		return Response.status(200).entity(resourceBuilder.toString()).build();
+//	}
 }
