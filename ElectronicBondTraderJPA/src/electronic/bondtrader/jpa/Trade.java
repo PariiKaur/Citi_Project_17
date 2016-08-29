@@ -6,12 +6,13 @@ import java.math.BigDecimal;
 
 
 /**
- * The persistent class for the tradedetails database table.
+ * The persistent class for the trade details database table.
  * 
  */
 @Entity
 @Table(name="tradedetails")
 @NamedQuery(name="Trade.findAll", query="SELECT t FROM Trade t")
+
 public class Trade implements Serializable {
 	private static final long serialVersionUID = 1L;
 
