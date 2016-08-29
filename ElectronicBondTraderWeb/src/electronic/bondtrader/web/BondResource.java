@@ -50,30 +50,14 @@ public class BondResource {
 			//return null; //bean.getProductsByName(filter);
 	}
 	
-//	@POST
-//	@Path("/post_test")
-//	@Consumes("application/x-www-form-urlencoded")
-//	public Response post(@FormParam("name") String name) {
-//	    // Store the message
-//		String updated = "Success!";
-//		return Response.status(200).entity(updated).build();
-//	}
-	
 	@POST
 	@Path("/post_test")
 	@Consumes("application/x-www-form-urlencoded")
-	public Response post(MultivaluedMap<String, String> formParams) {
+	public Response post(@FormParam("name") String name, @FormParam("x") int x) {
 	    // Store the message
 		String updated = "";
 		try
 		{
-			Iterator<String> it = formParams.keySet().iterator();
-			while(it.next() != null)
-			{
-				String theKey = (String)it.next();
-				System.out.println(formParams.getFirst(theKey));
-				
-			}
 			System.out.println("Successfull Creation");
 		}
 		catch (Exception e)
@@ -82,6 +66,30 @@ public class BondResource {
 		}
 		return Response.status(200).entity(updated).build();
 	}
+	
+//	@POST
+//	@Path("/post_test")
+//	@Consumes("application/x-www-form-urlencoded")
+//	public Response post(MultivaluedMap<String, String> formParams) {
+//	    // Store the message
+//		String updated = "";
+//		try
+//		{
+//			Iterator<String> it = formParams.keySet().iterator();
+//			while(it.next() != null)
+//			{
+//				String theKey = (String)it.next();
+//				System.out.println(formParams.getFirst(theKey));
+//				
+//			}
+//			System.out.println("Successfull Creation");
+//		}
+//		catch (Exception e)
+//		{
+//			System.out.println("API Error!");
+//		}
+//		return Response.status(200).entity(updated).build();
+//	}
 	
 //	@POST
 //	@Path("/post_test")
