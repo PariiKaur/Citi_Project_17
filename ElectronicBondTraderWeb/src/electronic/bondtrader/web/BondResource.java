@@ -16,6 +16,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
@@ -52,7 +53,8 @@ public class BondResource {
 	
 	@POST
 	@Path("/post_test")
-	@Consumes("application/x-www-form-urlencoded")
+//	@Consumes("application/x-www-form-urlencoded")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public Response post(@FormParam("name") String name, @FormParam("x") int x) {
 	    // Store the message
 		String updated = "";
