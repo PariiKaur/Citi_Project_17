@@ -51,6 +51,26 @@ public class BondTraderBean implements BondTraderBeanRemote, BondTraderBeanLocal
 		List<Bond> bondList = query.getResultList();
 		return bondList;
     }
+    
+    public List<Bond> getBondsByCurrency (String curr){
+    	Query query = em.createQuery("select b from Bond as b"
+    			+ " where b.bond_Currency  = :curr");
+    	query.setParameter("curr", curr);
+		List<Bond> bondList = query.getResultList();
+		return bondList;
+    }
+    
+    public List<Bond> getBondsByCriteria (String rating, String typeName){
+    	Query query = em.createQuery("select b from Bond as b"
+    			+ " where b.credit_Rating  = :rate AND b.bond_Type  = :search");
+    	query.setParameter("rate", rating);
+    	query.setParameter("search", typeName);
+    	
+    	List<Bond> bondList = query.getResultList();
+		return bondList;
+    }
+
+	   
 
 }
 

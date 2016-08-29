@@ -1,5 +1,6 @@
 package electronic.bondtrader.web;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
@@ -45,6 +46,8 @@ public class BondResource {
 	@Produces ("application/json")
 	@Path("/{param}")
 	public List<Bond> getBondsByType(@PathParam ("param") String filter){
+		if(filter.length()==0)
+			return bean.getAllBonds();
 		return bean.getBondsByType(filter);
 	}
 	
@@ -52,6 +55,28 @@ public class BondResource {
 	@Produces ("application/json")
 	@Path("/rating/{param}")
 	public List<Bond> getBondsByRating(@PathParam ("param") String filter){
-			return bean.getBondsByRating(filter);
+		if(filter.length()==0)
+			return bean.getAllBonds();
+		return bean.getBondsByRating(filter);
 	}
+	
+	@GET
+	@Produces ("application/json")
+	@Path("/currency/{param}")
+	public List<Bond> getBondsByCurrency(@PathParam ("param") String curr){
+		if(curr.length()==0)
+			return bean.getAllBonds();
+		return bean.getBondsByCurrency(curr);
+	}
+	
+	@GET
+	@Produces ("application/json")
+	@Path("/query/{type}/{rating}")
+	public List<Bond> getBondsByQuery(@PathParam ("type") String typeName,
+			@PathParam ("rating") String rating ){
+		List<Bond> bondsByCriteria = bean.getBondsByCriteria(rating, typeName);
+		return bondsByCriteria;
+		
+	}
+	
 }

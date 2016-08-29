@@ -12,4 +12,6 @@ public interface BondTraderBeanLocal {
 	public List<Bond> getAllBonds();
 	public List<Bond> getBondsByType(String typeName);
 	public List<Bond> getBondsByRating (String rating);
+	public List<Bond> getBondsByCurrency (String curr);
+	public List<Bond> getBondsByCriteria (String rating, String typeName);
 }

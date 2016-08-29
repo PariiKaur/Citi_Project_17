@@ -19,6 +19,8 @@ public class Bond implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private String bond_ID;
 
+	private String bond_Currency;
+
 	private String bond_Type;
 
 	private BigDecimal change;
@@ -52,6 +54,14 @@ public class Bond implements Serializable {
 
 	public void setBond_ID(String bond_ID) {
 		this.bond_ID = bond_ID;
+	}
+
+	public String getBond_Currency() {
+		return this.bond_Currency;
+	}
+
+	public void setBond_Currency(String bond_Currency) {
+		this.bond_Currency = bond_Currency;
 	}
 
 	public String getBond_Type() {
