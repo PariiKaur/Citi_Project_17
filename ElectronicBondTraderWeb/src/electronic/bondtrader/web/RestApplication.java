@@ -13,6 +13,7 @@ public class RestApplication extends Application {
 	
 	public RestApplication(){
 	     singletons.add(new BondResource());
+	     singletons.add(new OrderResource());
 	     
 	}
 	

@@ -4,8 +4,9 @@
     <persistence-unit name="ElectronicBondTraderJPA-PU" transaction-type="JTA">
         
         <jta-data-source>java:jboss/datasources/mydatabaseDS</jta-data-source>
-        <class>electronic.bondtrader.jpa.Trade</class>
+        
         <class>electronic.bondtrader.jpa.Bond</class>
+        <class>electronic.bondtrader.jpa.Client</class>
     </persistence-unit>
 
 </persistence>

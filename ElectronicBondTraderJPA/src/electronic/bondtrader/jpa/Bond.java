@@ -2,7 +2,6 @@ package electronic.bondtrader.jpa;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.math.BigDecimal;
 
 
 /**
@@ -23,19 +22,19 @@ public class Bond implements Serializable {
 
 	private String bond_Type;
 
-	private BigDecimal change;
+	private Double change;
 
-	private BigDecimal coupon_Rate;
+	private Double coupon_Rate;
 
 	private String credit_Rating;
 
-	private BigDecimal high;
+	private Double high;
 
 	private String issuer_Name;
 
-	private BigDecimal last;
+	private Double last;
 
-	private BigDecimal low;
+	private Double low;
 
 	private String maturity_Date;
 
@@ -43,7 +42,7 @@ public class Bond implements Serializable {
 
 	private String start_Date;
 
-	private BigDecimal yield;
+	private Double yield;
 
 	public Bond() {
 	}
@@ -72,19 +71,19 @@ public class Bond implements Serializable {
 		this.bond_Type = bond_Type;
 	}
 
-	public BigDecimal getChange() {
+	public Double getChange() {
 		return this.change;
 	}
 
-	public void setChange(BigDecimal change) {
+	public void setChange(Double change) {
 		this.change = change;
 	}
 
-	public BigDecimal getCoupon_Rate() {
+	public Double getCoupon_Rate() {
 		return this.coupon_Rate;
 	}
 
-	public void setCoupon_Rate(BigDecimal coupon_Rate) {
+	public void setCoupon_Rate(Double coupon_Rate) {
 		this.coupon_Rate = coupon_Rate;
 	}
 
@@ -96,11 +95,11 @@ public class Bond implements Serializable {
 		this.credit_Rating = credit_Rating;
 	}
 
-	public BigDecimal getHigh() {
+	public Double getHigh() {
 		return this.high;
 	}
 
-	public void setHigh(BigDecimal high) {
+	public void setHigh(Double high) {
 		this.high = high;
 	}
 
@@ -112,19 +111,19 @@ public class Bond implements Serializable {
 		this.issuer_Name = issuer_Name;
 	}
 
-	public BigDecimal getLast() {
+	public Double getLast() {
 		return this.last;
 	}
 
-	public void setLast(BigDecimal last) {
+	public void setLast(Double last) {
 		this.last = last;
 	}
 
-	public BigDecimal getLow() {
+	public Double getLow() {
 		return this.low;
 	}
 
-	public void setLow(BigDecimal low) {
+	public void setLow(Double low) {
 		this.low = low;
 	}
 
@@ -152,11 +151,11 @@ public class Bond implements Serializable {
 		this.start_Date = start_Date;
 	}
 
-	public BigDecimal getYield() {
+	public Double getYield() {
 		return this.yield;
 	}
 
-	public void setYield(BigDecimal yield) {
+	public void setYield(Double yield) {
 		this.yield = yield;
 	}
 

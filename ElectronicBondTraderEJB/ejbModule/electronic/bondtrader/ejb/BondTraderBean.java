@@ -1,5 +1,6 @@
 package electronic.bondtrader.ejb;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+//import electronic.bondcalculator.BondPriceCalculator;
 import electronic.bondtrader.jpa.Bond;
 import electronic.bondtrader.jpa.Client;
 
@@ -69,16 +71,13 @@ public class BondTraderBean implements BondTraderBeanRemote, BondTraderBeanLocal
 		return bondList;
 	}
 	
-	public void bookTrade (String isin, int quantity) {
-		Query query = em
-				.createQuery("select b from Bond as b" + " where b.bond_ID = :search");
-		query.setParameter("search", isin);
-		Bond currentBond = (Bond) query.getSingleResult();
-		
-		BondPriceCalculator priceCalc = new BondPriceCalculator();
-		
-		
+	public Bond getBondsById(String id) {
+		Query query = em.createQuery("select b from Bond as b" + " where b.bond_ID  = :search");
+		query.setParameter("search", id);
+		Bond bond_data =  (Bond) query.getSingleResult();
+		return bond_data;
 	}
+	
 	
 	public List<Client> allClients()
 	{
@@ -96,5 +95,11 @@ public class BondTraderBean implements BondTraderBeanRemote, BondTraderBeanLocal
 		List<Client> client_info = query.getResultList();
 		return client_info;
 	}
+
+//	@Override
+//	public void bookTrade(String isin, int quantity) {
+//		// TODO Auto-generated method stub
+//		
+//	}
 
 }
