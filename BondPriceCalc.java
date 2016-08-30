@@ -17,7 +17,7 @@ public class BondPriceCalc {
 
 	public static double calcCashFlow(double coupon, double fv){
 
-		return (coupon*fv/100);
+		return (Math.round((coupon*fv/100)*1000))/1000.0;
 
 	}
 
@@ -31,7 +31,7 @@ public class BondPriceCalc {
 
 		pv+=fv/Math.pow((1+ytm/100),noOfYears);
 
-		return pv;
+		return (Math.round(pv*1000))/1000.0;
 	}
 
 	public static double calcAccruedInterest(Date issueDate, Date settlementDate, double cf){
@@ -52,26 +52,37 @@ public class BondPriceCalc {
 		Date accruedDate = cal2.getTime();
 		long noOfDays=countNoOfDays(accruedDate,settlementDate);
 		accruedInterest = noOfDays*cf/(360);
-		return accruedInterest;
+		return (Math.round(accruedInterest*1000))/1000.0;
 
 	}
 
-	public static double calcDirtyPrice(double cleanPrice, double accruedInterest){
+	public static double calcDirtyPrice(double presentValue, double accruedInterest){
 
 		double dirtyPrice;
-		dirtyPrice = cleanPrice + accruedInterest;
-		return dirtyPrice;
+		dirtyPrice = presentValue + accruedInterest;
+		return (Math.round(dirtyPrice*1000))/1000.0;
 
+	}
+	
+	public static double calcSettledAmount(int quantity, double dirtyPrice){
+		return (Math.round((quantity*dirtyPrice)*1000))/1000.0;
+	}
+	
+	public static double calcYield(int noOfYears, double presentValue, double faceValue,double cashFlow){
+		double yield=200*(cashFlow+(faceValue-presentValue)/noOfYears)/(faceValue+presentValue);
+		return (Math.round(yield*1000))/1000.0;
+		
 	}
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		double faceValue;	// from database
-		double lastPrice;	// from database
+		double faceValue=100.0;	// 
 		double couponRate;	// from database
+		
+		
 
 		String stDate;   // from database
-		String setDate;	//user Input
+		String trDate;	//user Input
 		String matDate;		// from database
 
 
@@ -87,8 +98,14 @@ public class BondPriceCalc {
 		int noOfYears;
 
 		Date startDate;	
+		Date tradeDate;
 		Date settlementDate;
 		Date maturityDate;
+		
+		int quantity;
+		double settledAmount;
+		
+		double yield;
 
 
 
@@ -96,8 +113,8 @@ public class BondPriceCalc {
 
 		// Input settlement date (user) 
 		SimpleDateFormat dateformat = new SimpleDateFormat("dd/M/yyyy");
-		System.out.println("enter settlement date in format dd/mm/yyyy");
-		setDate=s.next();
+		System.out.println("enter trade date in format dd/mm/yyyy");
+		trDate=s.next();
 
 		// Input start date (database) in String format
 		System.out.println("enter bond issue date in format dd/mm/yyyy");
@@ -106,16 +123,18 @@ public class BondPriceCalc {
 		// Input maturity date (database) in String format
 		System.out.println("enter maturity date in format dd/mm/yyyy");
 		matDate=s.next();
+		
+		
 
 		// Input Face Value (database)
 
-		System.out.println("Enter Face Value");
-		faceValue=s.nextDouble();
+		//System.out.println("Enter Face Value");
+		//faceValue=s.nextDouble();
 
 		// Input Last Price (database)
 
-		System.out.println("Enter Last Price");
-		lastPrice=s.nextDouble();
+		//System.out.println("Enter Last Price");
+		//lastPrice=s.nextDouble();
 
 		// Input coupon rate (database)
 
@@ -126,12 +145,23 @@ public class BondPriceCalc {
 
 		System.out.println("Enter yield to maturity");
 		yieldToMaturity=s.nextDouble();
+		
+		// Input quntity in integer format
+		System.out.println("enter quantity");
+		quantity=s.nextInt();
 
 
 		try {
 			startDate = dateformat.parse(stDate);
-			settlementDate = dateformat.parse(setDate);
+			tradeDate = dateformat.parse(trDate);
 			maturityDate = dateformat.parse(matDate);
+			
+			// add 2 days to trade date to calculate settlement date
+			Calendar cal = Calendar.getInstance(); 
+			cal.setTime(tradeDate);
+			cal.add(Calendar.DATE, 2);
+			
+			settlementDate=cal.getTime();
 			noOfDays=countNoOfDays(settlementDate,maturityDate);
 			if(noOfDays<0){
 				System.out.println("Date not correct");
@@ -143,14 +173,20 @@ public class BondPriceCalc {
 				cashFlow = calcCashFlow( couponRate, faceValue);
 				presentValue = calcPresentValue( faceValue, yieldToMaturity, noOfYears, cashFlow);	
 				accruedInterest=calcAccruedInterest(startDate,settlementDate, cashFlow);
-				dirtyPrice=calcDirtyPrice(lastPrice, accruedInterest);		
+				dirtyPrice=calcDirtyPrice(presentValue, accruedInterest);
+				settledAmount=calcSettledAmount(quantity, dirtyPrice);
+				yield=calcYield(noOfYears, presentValue, faceValue, cashFlow);
+				
+				// Print all variables
+				System.out.println(settlementDate);
 				System.out.println("No of Days= "+ noOfDays);
 				System.out.println("No of years= "+ noOfYears);
 				System.out.println("Cash Flow= "+ cashFlow);
-				System.out.println("Present Value= "+ presentValue);
+				System.out.println("Clean Pricee= "+ presentValue);
 				System.out.println("accrued interest= "+ accruedInterest);
 				System.out.println("dirty price= "+ dirtyPrice);
-				
+				System.out.println("Settled Amount = " + settledAmount);
+				System.out.println("calculated ytm = " + yield);
 
 			}
 
@@ -159,7 +195,7 @@ public class BondPriceCalc {
 			//	 System.out.println("error in date!!!!");
 			e.printStackTrace();
 		}
-
+		s.close();
 
 
 
