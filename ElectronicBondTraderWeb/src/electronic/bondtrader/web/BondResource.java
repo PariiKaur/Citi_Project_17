@@ -20,6 +20,7 @@ import javax.ws.rs.core.Response;
 
 import electronic.bondtrader.ejb.BondTraderBeanLocal;
 import electronic.bondtrader.jpa.Bond;
+import electronic.bondtrader.jpa.Client;
 
 @RequestScoped
 @Path("/bond")
@@ -38,22 +39,9 @@ public class BondResource {
 			e.printStackTrace();
 		}
 	}
-	@POST
-	@Path("/post_test")
-	@Consumes("application/x-www-form-urlencoded")
-	public Response post(@FormParam("name") String name, @FormParam("contact") String n) {
-		String  updated ="";
-		try {
-			System.out.println("Created successfully");
-			System.out.println(n + " " + name);
-			Integer received_contact = Integer.parseInt(n);
-			System.out.println(received_contact+1);
-		}
-		catch(Exception e) {
-			System.out.println("API error...");
-		}
-		return Response.status(200).entity(updated).build();
-	}	
+	
+	
+	
 	@GET
 	@Produces ("application/json")
 	public List<Bond> getAllBonds(){
@@ -95,10 +83,106 @@ public class BondResource {
 			@PathParam ("rating") String rating ){
 		List<Bond> bondsByCriteria = bean.getBondsByCriteria(rating, typeName);
 		return bondsByCriteria;
-		
 	
 	}
+	
+	@GET
+	@Produces ("application/json")
+	@Path("/client_info/")
+	public Response populateClient()
+	{
+		try 
+		{
+			List<Client> names = bean.allClients();
+//			return names;
+			return Response.status(200).entity(names).build();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			System.out.println("API Error!");
+			return Response.ok(false).entity("API Error").build();
+		}
+	}
+	
+	
+	@POST
+	@Path("/client_retrieval")
+	@Produces("application/json")
+	@Consumes("application/x-www-form-urlencoded")
+	public Response clientRetrieval(@FormParam("id") String id) {
+		String  updated ="";
+		try 
+		{
+			List<Client> clientInfo = bean.getClientById(id);
+			return Response.status(200).entity(clientInfo).build();
+		}
+		catch(Exception e) 
+		{
+			return Response.ok(false).entity("API Error").build();
+		}
 		
 	}
+	
+	@POST
+	@Path("/compute_trade")
+	@Consumes("application/x-www-form-urlencoded")
+	public Response computeBond(@FormParam("isin") String name, @FormParam("quantity") String quantity,
+			@FormParam("trade_date") String trade_date, 
+			@FormParam("settle_date") String settle_date, @FormParam("yield") String yield ) {
+		
+		try {
+			//TODO: calculation stuff!
+			return Response.status(200).entity("SuccessFully Computed").build();
+		}
+		catch(Exception e) {
+			System.out.println("API error...");
+			return Response.ok(false).entity("API Error").build();
+		}
+		
+	}
+	
+	
+	@POST
+	@Path("/recompute_trade")
+	@Consumes("application/x-www-form-urlencoded")
+	public Response recomputeBond(@FormParam("isin") String name, @FormParam("quantity") String quantity,
+			@FormParam("trade_date") String trade_date, 
+			@FormParam("settle_date") String settle_date, @FormParam("yield") String yield ) {
+		
+		try {
+			//TODO: calculation stuff!
+			return Response.status(200).entity("SuccessFully Re-Computed").build();
+		}
+		catch(Exception e) {
+			System.out.println("API error...");
+			return Response.ok(false).entity("API Error").build();
+		}
+		
+	}
+	
+	
+	@POST
+	@Path("/post_test")
+	@Consumes("application/x-www-form-urlencoded")
+	public Response post(@FormParam("name") String name, @FormParam("contact") String n) {
+		String  updated ="";
+		try {
+			System.out.println("Created successfully");
+			System.out.println(n + " " + name);
+			Integer received_contact = Integer.parseInt(n);
+			System.out.println(received_contact+1);
+			return Response.status(200).entity("Success").build();
+		}
+		catch(Exception e) {
+			System.out.println("API error...");
+			return Response.ok(false).entity("API Error").build();
+		}
+		
+	}
+	
+	
+	
+}
 	
 
