@@ -1,0 +1,12 @@
+package electronic.bondtrader.ejb;
+
+import java.util.List;
+
+import javax.ejb.Local;
+
+@Local
+public interface BondCalculationBeanLocal {
+	public static List<Double> bookTrade (String isin, String quantity, String trade_date, String yield,  String client_id);
+
+
+}

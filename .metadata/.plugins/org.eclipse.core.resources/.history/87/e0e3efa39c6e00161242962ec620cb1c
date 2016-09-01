@@ -1,0 +1,25 @@
+package electronic.bondtrader.ejb;
+
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+/**
+ * Session Bean implementation class BondCalculationBean
+ */
+@Stateless
+@LocalBean
+public class BondCalculationBean implements BondCalculationBeanRemote, BondCalculationBeanLocal {
+
+	
+	@PersistenceContext(unitName = "ElectronicBondTraderJPA-PU")
+	EntityManager em;
+    /**
+     * Default constructor. 
+     */
+    public BondCalculationBean() {
+        // TODO Auto-generated constructor stub
+    }
+
+}

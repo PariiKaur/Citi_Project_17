@@ -2,6 +2,7 @@
 <kb-project>
  <depends-on-projects>
   <project name="ElectronicBondTraderJPA"/>
+  <project name="ElectronicBondTraderEJBClient"/>
  </depends-on-projects>
  <used-by-projects/>
  <paths>

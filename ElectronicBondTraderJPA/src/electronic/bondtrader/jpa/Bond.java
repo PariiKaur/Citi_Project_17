@@ -1,7 +1,13 @@
 package electronic.bondtrader.jpa;
 
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.List;
+
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 
 
 /**
@@ -14,27 +20,28 @@ import javax.persistence.*;
 public class Bond implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	
 	private String bond_ID;
 
 	private String bond_Currency;
 
 	private String bond_Type;
 
-	private Double change;
+	private double change;
 
-	private Double coupon_Rate;
+	private double coupon_Rate;
 
 	private String credit_Rating;
 
-	private Double high;
+	private double face_Value;
+
+	private double high;
 
 	private String issuer_Name;
 
-	private Double last;
+	private double last;
 
-	private Double low;
+	private double low;
 
 	private String maturity_Date;
 
@@ -42,11 +49,15 @@ public class Bond implements Serializable {
 
 	private String start_Date;
 
-	private Double yield;
+	private double yield;
+	
+//	private List<Trade> tradesOfBond = null;
 
 	public Bond() {
 	}
-
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public String getBond_ID() {
 		return this.bond_ID;
 	}
@@ -71,19 +82,19 @@ public class Bond implements Serializable {
 		this.bond_Type = bond_Type;
 	}
 
-	public Double getChange() {
+	public double getChange() {
 		return this.change;
 	}
 
-	public void setChange(Double change) {
+	public void setChange(double change) {
 		this.change = change;
 	}
 
-	public Double getCoupon_Rate() {
+	public double getCoupon_Rate() {
 		return this.coupon_Rate;
 	}
 
-	public void setCoupon_Rate(Double coupon_Rate) {
+	public void setCoupon_Rate(double coupon_Rate) {
 		this.coupon_Rate = coupon_Rate;
 	}
 
@@ -95,11 +106,19 @@ public class Bond implements Serializable {
 		this.credit_Rating = credit_Rating;
 	}
 
-	public Double getHigh() {
+	public double getFace_Value() {
+		return this.face_Value;
+	}
+
+	public void setFace_Value(double face_Value) {
+		this.face_Value = face_Value;
+	}
+
+	public double getHigh() {
 		return this.high;
 	}
 
-	public void setHigh(Double high) {
+	public void setHigh(double high) {
 		this.high = high;
 	}
 
@@ -111,19 +130,19 @@ public class Bond implements Serializable {
 		this.issuer_Name = issuer_Name;
 	}
 
-	public Double getLast() {
+	public double getLast() {
 		return this.last;
 	}
 
-	public void setLast(Double last) {
+	public void setLast(double last) {
 		this.last = last;
 	}
 
-	public Double getLow() {
+	public double getLow() {
 		return this.low;
 	}
 
-	public void setLow(Double low) {
+	public void setLow(double low) {
 		this.low = low;
 	}
 
@@ -151,12 +170,22 @@ public class Bond implements Serializable {
 		this.start_Date = start_Date;
 	}
 
-	public Double getYield() {
+	public double getYield() {
 		return this.yield;
 	}
 
-	public void setYield(Double yield) {
+	public void setYield(double yield) {
 		this.yield = yield;
 	}
+	
+//	@OneToMany(mappedBy="bond", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+//	@JsonManagedReference (value="user-bond")
+//	public List<Trade> getTradesOfBond() {
+//		return tradesOfBond;
+//	}
+//
+//	public void setTradesOfBond(List<Trade> tradesOfBond) {
+//		this.tradesOfBond = tradesOfBond;
+//	}
 
 }

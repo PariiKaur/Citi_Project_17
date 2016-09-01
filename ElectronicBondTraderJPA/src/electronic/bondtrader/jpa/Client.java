@@ -1,7 +1,13 @@
 package electronic.bondtrader.jpa;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 /**
@@ -14,8 +20,7 @@ import javax.persistence.*;
 public class Client implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	
 	private int client_Id;
 
 	private String email;
@@ -25,10 +30,13 @@ public class Client implements Serializable {
 	private String last_Name;
 
 	private int phone;
-
+	
+//	private List<Trade> tradesOfClient= null;
 	public Client() {
 	}
-
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public int getClient_Id() {
 		return this.client_Id;
 	}
@@ -68,5 +76,15 @@ public class Client implements Serializable {
 	public void setPhone(int phone) {
 		this.phone = phone;
 	}
+	
+//	@OneToMany(mappedBy="client", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+//	@JsonManagedReference (value="user-client")
+//	public List<Trade> getTradesOfClient() {
+//		return tradesOfClient;
+//	}
+//
+//	public void setTradesOfClient(List<Trade> tradesOfClient) {
+//		this.tradesOfClient = tradesOfClient;
+//	}
 
 }

@@ -1,0 +1,167 @@
+package electronic.bondtrader.ejb;
+
+import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Scanner;
+
+import electronic.bondtrader.jpa.Bond;
+
+public class BondPriceCalculator {
+
+	public long countNoOfDays(Date startDate, Date endDate) {
+
+		long noOfDays = endDate.getTime() - startDate.getTime();
+		return noOfDays / (60 * 60 * 24 * 1000);
+
+	}
+
+	// Calculates cash flow periodically using Coupon rate and Face value
+	public BigDecimal calcCashFlow(BigDecimal couponRate, BigDecimal fv) {
+
+		BigDecimal b = new BigDecimal(100);
+		return (couponRate.multiply(fv).divide(b));
+
+	}
+	 
+	// Calculates present value of bond using Face value, Yield to maturity, cashflow 
+	public BigDecimal calcPresentValue(BigDecimal fv, BigDecimal ytm, int noOfYears, BigDecimal cf) {
+
+		BigDecimal pv = 0.0;
+
+		for (int i = 1; i <= noOfYears; i++) {
+			pv += cf / Math.pow((1 + ytm / 100), i);
+		}
+
+		pv += fv / Math.pow((1 + ytm / 100), noOfYears);
+
+		return pv;
+	}
+
+	public BigDecimal calcAccruedInterest(Date issueDate, Date settlementDate, BigDecimal cf) {
+
+		BigDecimal accruedInterest;
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(issueDate);
+		int month = cal.get(Calendar.MONTH);
+		int day = cal.get(Calendar.DAY_OF_MONTH);
+		Calendar cal1 = Calendar.getInstance();
+		cal1.setTime(settlementDate);
+		int year = cal1.get(Calendar.YEAR);
+		Calendar cal2 = Calendar.getInstance();
+
+		cal2.set(Calendar.YEAR, year);
+		cal2.set(Calendar.MONTH, month);
+		cal2.set(Calendar.DAY_OF_MONTH, day);
+
+		Date accruedDate = cal2.getTime();
+		long noOfDays = countNoOfDays(accruedDate, settlementDate);
+		accruedInterest = noOfDays * cf / (360);
+		return accruedInterest;
+
+	}
+
+	public BigDecimal calcDirtyPrice(BigDecimal lastPrice, BigDecimal accruedInterest) {
+
+		BigDecimal dirtyPrice;
+		dirtyPrice = lastPrice.add(accruedInterest); 
+		return dirtyPrice;
+
+	}
+
+	public void evaluateBond(Bond currentBond) {
+		
+		BondPriceCalculator ob = new BondPriceCalculator();
+		
+		// TODO Auto-generated method stub
+		BigDecimal faceValue = new BigDecimal(100) ; // from database
+		BigDecimal lastPrice = currentBond.getLast(); // from database
+		BigDecimal couponRate = currentBond.getCoupon_Rate(); // from database
+
+		String stDate = currentBond.getStart_Date(); // from database
+		String settleDate; // user Input
+		String matDate = currentBond.getMaturity_Date(); // from database
+
+		BigDecimal yieldToMaturity = null; // User Input
+
+		BigDecimal presentValue; // calculate
+		BigDecimal cashFlow; // calculate
+		BigDecimal dirtyPrice; // calculate
+		BigDecimal accruedInterest; // calculate
+
+		long noOfDays;
+		int noOfYears;
+
+		Date startDate;
+		Date settlementDate;
+		Date maturityDate;
+
+		Scanner s = new Scanner(System.in);
+
+		// Input settlement date (user)
+		SimpleDateFormat dateformat = new SimpleDateFormat("dd/M/yyyy");
+		System.out.println("enter settlement date in format dd/mm/yyyy");
+		settleDate = s.next();
+
+		// Input start date (database) in String format
+		System.out.println("enter bond issue date in format dd/mm/yyyy");
+		stDate = s.next();
+
+		// Input maturity date (database) in String format
+		System.out.println("enter maturity date in format dd/mm/yyyy");
+		matDate = s.next();
+
+		// Input Face Value (database)
+
+		/*System.out.println("Enter Face Value");
+		faceValue = s.nextBigDecimal();
+*/
+		// Input Last Price (database)
+
+//		System.out.println("Enter Last Price");
+//		lastPrice = s.nextBigDecimal()();
+
+		// Input coupon rate (database)
+
+//		System.out.println("Enter Coupon Rate");
+//		couponRate = s.nextDoub();
+
+		// Input Yield to Maturity from the user
+
+		/*System.out.println("Enter yield to maturity");
+		yieldToMaturity = s.nextBigDecimal();*/
+
+		try {
+			startDate = dateformat.parse(stDate);
+			settlementDate = dateformat.parse(settleDate);
+			maturityDate = dateformat.parse(matDate);
+			noOfDays = ob.countNoOfDays(settlementDate, maturityDate);
+			if (noOfDays < 0) {
+				System.out.println("Date not correct");
+			} else {
+
+				// System.out.println("No of Days= "+ noOfDays);
+				noOfYears = (int) Math.ceil(noOfDays / 365.0);
+				cashFlow = ob.calcCashFlow(couponRate, faceValue);
+				presentValue = ob.calcPresentValue(faceValue, yieldToMaturity, noOfYears, cashFlow);
+				accruedInterest = ob.calcAccruedInterest(startDate, settlementDate, cashFlow);
+				dirtyPrice = ob.calcDirtyPrice(lastPrice, accruedInterest);
+				System.out.println("No of Days= " + noOfDays);
+				System.out.println("No of years= " + noOfYears);
+				System.out.println("Cash Flow= " + cashFlow);
+				System.out.println("Present Value= " + presentValue);
+				System.out.println("accrued interest= " + accruedInterest);
+				System.out.println("dirty price= " + dirtyPrice);
+
+			}
+
+		} catch (ParseException e) {
+			// System.out.println("error in date!!!!");
+			e.printStackTrace();
+		}
+
+	}
+
+}

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename field &apos;bean&apos; in &apos;electronic.bondtrader.web.BondResource&apos; to &apos;traderBean&apos;&#x0D;&#x0A;- Original project: &apos;ElectronicBondTraderWeb&apos;&#x0D;&#x0A;- Original element: &apos;electronic.bondtrader.web.BondResource.bean&apos;&#x0D;&#x0A;- Renamed element: &apos;electronic.bondtrader.web.BondResource.traderBean&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" delegate="false" deprecate="false" description="Rename field &apos;bean&apos;" flags="589826" getter="false" id="org.eclipse.jdt.ui.rename.field" input="/src&lt;electronic.bondtrader.web{BondResource.java[BondResource^bean" name="traderBean" references="true" setter="false" stamp="1472554092190" textual="false" version="1.0"/>
+</session>

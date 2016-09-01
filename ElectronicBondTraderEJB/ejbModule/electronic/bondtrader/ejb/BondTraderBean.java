@@ -39,6 +39,14 @@ public class BondTraderBean implements BondTraderBeanRemote, BondTraderBeanLocal
 		List<Bond> bondList = query.getResultList();
 		return bondList;
 	}
+	
+	public List<Bond> getTopFiveBonds() {
+		Query query = em.createQuery("select b from Bond as b"
+				+ " where b.credit_Rating = 'AAA' order by b.yield desc").setMaxResults(5);
+		
+		List<Bond> bondList =query.getResultList();
+		return bondList;
+	}
 
 	public List<Bond> getBondsByType(String typeName) {
 		Query query = em.createQuery("select b from Bond as b" + " where b.bond_Type  = :search");
@@ -61,7 +69,7 @@ public class BondTraderBean implements BondTraderBeanRemote, BondTraderBeanLocal
 		return bondList;
 	}
 
-	public List<Bond> getBondsByCriteria(String rating, String typeName) {
+	public List<Bond> getBondsByRatingAndType(String rating, String typeName) {
 		Query query = em
 				.createQuery("select b from Bond as b" + " where b.credit_Rating  = :rate AND b.bond_Type  = :search");
 		query.setParameter("rate", rating);
@@ -70,6 +78,42 @@ public class BondTraderBean implements BondTraderBeanRemote, BondTraderBeanLocal
 		List<Bond> bondList = query.getResultList();
 		return bondList;
 	}
+	
+	public List<Bond> getBondsByRatingAndCurrency(String rating, String currency) {
+		Query query = em
+				.createQuery("select b from Bond as b" + " where b.credit_Rating  = :rate AND b.bond_Currency  = :search");
+		query.setParameter("rate", rating);
+		query.setParameter("search", currency);
+
+		List<Bond> bondList = query.getResultList();
+		return bondList;
+	}
+	
+	public List<Bond> getBondsByTypeAndCurrency(String type, String currency) {
+		Query query = em
+				.createQuery("select b from Bond as b" + " where b.bond_Type  = :rate AND b.bond_Currency  = :search");
+		query.setParameter("rate", type);
+		query.setParameter("search", currency);
+
+		List<Bond> bondList = query.getResultList();
+		return bondList;
+	}
+	
+	public List<Bond> getBondsByCriteria(String type, String rating, String currency) {
+		Query query = em
+				.createQuery("select b from Bond as b" + " where b.bond_Type  = :type AND b.bond_Currency  = :search AND b.credit_Rating = :rating");
+		query.setParameter("type", type);
+		query.setParameter("search", currency);
+		query.setParameter("rating", rating);
+
+		
+
+		List<Bond> bondList = query.getResultList();
+		return bondList;
+	}
+	
+	
+
 	
 	public Bond getBondsById(String id) {
 		Query query = em.createQuery("select b from Bond as b" + " where b.bond_ID  = :search");

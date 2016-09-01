@@ -1,0 +1,35 @@
+package electronic.bondtrader.web;
+
+import javax.enterprise.context.RequestScoped;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+
+import electronic.bondtrader.ejb.BondCalculationBeanLocal;
+import electronic.bondtrader.ejb.BondTraderBeanLocal;
+
+@RequestScoped
+@Path("/order")
+@Produces({ "*/*", "application/json", "application/xml" })
+@Consumes({ "*/*", "application/json", "application/xml" })
+public class OrderResource {
+	
+	private BondCalculationBeanLocal calculatorBean;
+	
+	public OrderResource() {
+		Context context = null;
+		try {
+			context = new InitialContext();
+			
+			calculatorBean = (BondCalculationBeanLocal) context.lookup(
+					"java:global/ElectronicBondTrader/ElectronicBondTraderEJB/BondCalculationBean!electronic.bondtrader.ejb.BondCalculationBeanLocal");
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+}

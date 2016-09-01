@@ -4,6 +4,7 @@
   <project name="ElectronicBondTraderJPA"/>
  </depends-on-projects>
  <used-by-projects>
+  <project name="ElectronicBondTraderWeb"/>
   <project name="ElectronicBondTraderEJB"/>
  </used-by-projects>
  <paths>

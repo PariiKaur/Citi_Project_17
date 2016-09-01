@@ -6,6 +6,7 @@ import java.util.List;
 import javax.ejb.Remote;
 
 import electronic.bondtrader.jpa.Bond;
+import electronic.bondtrader.jpa.Trade;
 
 @Remote
 public interface BondCalculationBeanRemote {
@@ -19,4 +20,7 @@ public interface BondCalculationBeanRemote {
 	public double calcSettledAmount(int quantity, double dirtyPrice);
 	public double calcYield(int noOfYears, double presentValue, double faceValue,double cashFlow);
 	public  List<Double> evaluateBond(Bond currentBond, int quantity, String trDate, double yield );
+	public List<Double> recomputeTrade (String isin, String quant, String trade_date, String cleanPrice, String client_id);
+	public List<Trade> showAllTrades();
+	public void buyBond(String trade_date, String quantity, String dirtyPrice, String client_id, String isin);
 }

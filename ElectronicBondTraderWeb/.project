@@ -3,6 +3,7 @@
 	<name>ElectronicBondTraderWeb</name>
 	<comment></comment>
 	<projects>
+		<project>ElectronicBondCalculator</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
