@@ -40,7 +40,6 @@ INDEX VERSION 1.127+C:\Users\Grad57\Citi_Project_17\.metadata\.plugins\org.eclip
 2113877960.index
 715447931.index
 1670528678.index
-1969571682.index
 727511539.index
 1944440656.index
 430205200.index

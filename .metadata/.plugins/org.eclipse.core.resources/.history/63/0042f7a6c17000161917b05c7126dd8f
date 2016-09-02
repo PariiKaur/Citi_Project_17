@@ -88,7 +88,7 @@ public class BondCalculationBean implements BondCalculationBeanRemote, BondCalcu
     
     public List<Trade> showAllTrades(){
     	Query query = em
-				.createQuery("select t from Trade as t order by t.order_ID desc");
+				.createQuery("select t from Trade as t");
 		
 		List<Trade> listOfTrades = (List<Trade>) query.getResultList();
     	return listOfTrades;
